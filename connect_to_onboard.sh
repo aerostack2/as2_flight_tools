@@ -37,7 +37,7 @@ else
     address=${address_array[$option-1]}
 fi
 
-echo -e -n "\nIntroduce onboard computer password for "$address".local: \n"
+echo -e -n "\nIntroduce password for "$address".local in order to sync time: \n"
 
 read -s password
 
@@ -45,6 +45,7 @@ read -s password
 
 expect -f - <<-EOF
   set timeout 10
+  log_user 0
   spawn ssh $address.local "sudo -S date -s '$(date)'"
   expect "*?assword*"
   send -- "$password\r"
