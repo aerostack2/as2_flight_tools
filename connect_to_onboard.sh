@@ -41,7 +41,18 @@ echo -e -n "\nIntroduce onboard computer password for "$address".local: \n"
 
 read -s password
 
-ssh_result=$(echo "$password" | ssh "$address".local "sudo date -s '$(date)'" 2>&1)
+#ssh_result=$(echo "$password" | ssh "$address".local "sudo date -s '$(date)'" 2>&1)
+
+expect -f - <<-EOF
+  set timeout 10
+  spawn ssh $address.local "sudo -S date -s '$(date)'"
+  expect "*?assword*"
+  send -- "$password\r"
+  expect "*?assword*"
+  send -- "$password\r"
+  expect eof
+EOF
+
 ssh_exit_status=$?
 
 # Check the exit status
