@@ -41,18 +41,14 @@ echo -e -n "\nIntroduce password for "$address".local in order to sync time: \n"
 
 read -s password
 
-#ssh_result=$(echo "$password" | ssh "$address".local "sudo date -s '$(date)'" 2>&1)
-
-expect -f - <<-EOF
+expect -c "
   set timeout 10
-  log_user 0
-  spawn ssh $address.local "sudo -S date -s '$(date)'"
-  expect "*?assword*"
-  send -- "$password\r"
-  expect "*?assword*"
-  send -- "$password\r"
-  expect eof
-EOF
+  spawn ssh $address.local \"sudo -S date -s '$(date)'\"
+  expect \"*?assword*\"
+  send \"$password\r\"
+  expect \"*?assword*\"
+  send \"$password\r\"
+" 
 
 ssh_exit_status=$?
 
@@ -66,9 +62,14 @@ if [ $ssh_exit_status -eq 0 ]; then
     fi
 else
     echo "SSH conection failed: Exit status $ssh_exit_status"
+    exit
 fi
 
 remote_command="bash -l"
 
-ssh -t "$address".local "$remote_command"
-
+expect -c "
+  spawn -noecho ssh -t $address.local \"$remote_command\"
+  expect \"*?assword*\"
+  send -- \"$password\r\"
+  interact
+"
