@@ -17,8 +17,8 @@ In order for this script to work, please install expect package with ```sudo apt
 Fan Profile Control
 -----------------
 
-Jetson Orin supports two profiles of fan operation named â€œquietâ€ and
-â€œcool.â€
+Jetson Orin supports two profiles of fan operation named quiet and
+cool
 
 Userspace Fan speed control daemon `nvfancontrol <#nvfancontrol>`__ manages fan speed
 based on the trip point temperatures configured for the selected profile.
