@@ -1,4 +1,6 @@
-This repository contains a watcher to be used to potentially automatically restart wifi on losing connection, and a script that connects to an onboard computer and sync the time on doing so. For now this scripts requires ssh keys inside de remote machine until I get the password piping working. 
+This repository contains a watcher to be used to potentially automatically restart wifi on losing connection, and a script that connects to an onboard computer and sync the time on doing so.
+
+In order for this script to work, please install expect package with ```sudo apt install expect```
 
 ### Remote conexion via wifi with QGC (EXECUTED IN REMOTE MACHINE)
 
