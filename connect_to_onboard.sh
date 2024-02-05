@@ -41,14 +41,15 @@ echo -e -n "\nIntroduce password for "$address".local in order to sync time: \n"
 
 read -s password
 
-expect -c "
+expect -f - <<-EOF
   set timeout 10
-  spawn ssh $address.local \"sudo -S date -s '$(date)'\"
-  expect \"*?assword*\"
-  send \"$password\r\"
-  expect \"*?assword*\"
-  send \"$password\r\"
-" 
+  spawn -noecho ssh $address.local "sudo -S date -s '$(date)'"
+  expect "*?assword*"
+  send -- "$password\r"
+  expect "*?assword*"
+  send -- "$password\r"
+  expect eof
+EOF
 
 ssh_exit_status=$?
 
