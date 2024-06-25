@@ -180,7 +180,7 @@ and sets the Fan PWM value specified as per FAN PWM mapping table.
 Connect to PX4 remotely
 -----------------------
 
-In order to connect to PX4 with QGC remotely, follow two steps:
-
-- In onboard computer: ```mavproxy.py --master=/dev/ttyACM0 --baudrate 115200  --out 192.168.0.130:14550```
+In order to connect to PX4 with QGC remotely, follow three steps:
+- Download mavproxy.py in the onboard computer: https://github.com/ArduPilot/MAVProxy/blob/master/MAVProxy/mavproxy.py or https://ardupilot.org/mavproxy/docs/getting_started/download_and_installation.html
+- In onboard computer: ```mavproxy.py --master=/dev/ttyACM0 --baudrate 115200  --out IP_QGC_MACHINE:14550``` Beeing IP_QGC_MACHINE de ip direction of the machine executing QGC.
 - In QGC: Application Settings -> Comm Links -> Add: Port 14550 UDP. Set a name and leave the rest empty.
