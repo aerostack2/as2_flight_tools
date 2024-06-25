@@ -176,3 +176,11 @@ and sets the Fan PWM value specified as per FAN PWM mapping table.
 - Syntax::
 
     POLLING_INTERVAL <time_in_seconds>
+
+Connect to PX4 remotely
+-----------------------
+
+In order to connect to PX4 with QGC remotely, follow two steps:
+
+- In onboard computer: ```mavproxy.py --master=/dev/ttyACM0 --baudrate 115200  --out 192.168.0.130:14550```
+- In QGC: Application Settings -> Comm Links -> Add: Port 14550 UDP. Set a name and leave the rest empty.
