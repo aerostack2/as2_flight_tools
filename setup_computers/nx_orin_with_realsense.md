@@ -125,6 +125,20 @@ Some interesting improvements are
 sudo apt install tmux tmuxinator python3 vctools -y
 ```
 
+For easing the mavproxy launch you can add the following lines to the end of ```~/.bashrc``` file
+
+```
+alias get_connection_ip="echo $(echo $SSH_CONNECTION | awk '{print $1}')"                            
+alias get_acm='ls /dev/ttyACM*'                                                                      
+alias mavproxy_connect='mavproxy.py --master=$(get_acm) --baudrate 115200  --out $(get_connection_ip):14550'
+```
+
+with these you can only run 
+```
+# To broadcast the mavproxy to the computer that has stablished the ssh conenction
+$ mavproxy_connect 
+```
+
 # Troubleshooting
 
 1. Realsense not detected:  Un-plug the USB and plug it again (yes this should work) 
