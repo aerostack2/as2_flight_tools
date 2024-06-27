@@ -1,26 +1,26 @@
-## Setup XAVIER ORIN NX 
+# Setup XAVIER ORIN NX 
 
-# 1. Load Jetpack 6.0 or superior in the board
+## 1. Load Jetpack 6.0 or superior in the board
 
 You should use NVIDIA SDK Manager to upload the firmware.
 
 For the Developer Board you may follow [Waveshare Instructions](https://www.waveshare.com/wiki/JETSON-ORIN-NX-16G-DEV-KIT)
 
-# 2. Update board
+## 2. Update board
 
 ```
 sudo apt update && sudo apt upgrade -y 
 ```
 
-# 3. Install ROS 2 Humble from Debian packages
+## 3. Install ROS 2 Humble from Debian packages
 
 Follow [Offical ROS 2 Humble setup Instructions](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
 
-# 4. Download Aerostack2 and platform
+## 4. Download Aerostack2 and platform
 
 You can follow [Aerostack2 setup guide](https://aerostack2.github.io/_00_getting_started/source_install.html) for installing and setting up aerostack2.
 
-# 4.1 Setup Platform (MavRos) 
+### 4.1 Setup Platform (MavRos) 
 
 In this example we will load mavros platform 
 
@@ -66,7 +66,7 @@ echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
 
 > IMPORTANT: Restart the computer after this to take effect.
 
-# 4.1 Setting up REALSENSE T265
+### 4.2 Setting up REALSENSE T265
 > Intel realsense T265 has been discontinued so the latest versions of the ```librealsense2``` do not support it, that is why we shall make this steps
 
 ```
@@ -93,7 +93,30 @@ as2 build as2_realsense_interface
 > IMPORTANT: Restart the computer after this to take effect.
 
 
-## Troubleshooting
+
+### 4.3 Setting up CycloneDDS and Zenoh-ros2-bridge
+
+
+We will follow [zenoh plugin ros2dds setup instuctions](https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds?tab=readme-ov-file#linux-debian).
+
+```
+echo "deb [trusted=yes] https://download.eclipse.org/zenoh/debian-repo/ /" | sudo tee -a /etc/apt/sources.list > /dev/null
+sudo apt update
+sudo apt install ros-humble-rmw-cyclonedds-cpp zenoh-bridge-ros2dds -y
+
+echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc
+echo 'export ROS_LOCALHOST_ONLY=1' >> ~/.bashrc
+```
+
+After this we sould enable multicast for Loopback in order to perform propperly. For enable it from start use:
+
+```
+sudo sh -c "echo 'sudo ip l set lo multicast on' >> /etc/rc.local"
+sudo chmod +x /etc/rc.local
+```
+> IMPORTANT: Restart the computer after this to take effect.
+
+# Troubleshooting
 
 1. Realsense not detected:  Un-plug the USB and plug it again (yes this should work) 
 
