@@ -111,10 +111,19 @@ echo 'export ROS_LOCALHOST_ONLY=1' >> ~/.bashrc
 After this we sould enable multicast for Loopback in order to perform propperly. For enable it from start use:
 
 ```
-sudo sh -c "echo 'sudo ip l set lo multicast on' >> /etc/rc.local"
+sudo sh -c 'echo "#!/bin/sh \nip l set lo multicast on" > /etc/rc.local'
+
 sudo chmod +x /etc/rc.local
 ```
 > IMPORTANT: Restart the computer after this to take effect.
+
+## 5 Additional programs
+
+Some interesting improvements are
+
+```
+sudo apt install tmux tmuxinator python3 vctools -y
+```
 
 # Troubleshooting
 
