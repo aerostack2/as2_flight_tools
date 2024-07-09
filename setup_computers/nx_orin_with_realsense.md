@@ -122,7 +122,7 @@ sudo chmod +x /etc/rc.local
 Some interesting improvements are
 
 ```
-sudo apt install tmux tmuxinator python3 vctools -y
+sudo apt install tmux tmuxinator python3-vcstools -y
 ```
 
 For easing the mavproxy launch you can add the following lines to the end of ```~/.bashrc``` file
